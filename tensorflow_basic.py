@@ -21,7 +21,7 @@ model.add(Dense(2,activation='relu'))
 model.add(Dense(1))
 
 model.compile(optimizer='rmsprop',loss='mse')
-model.fit(x=X_train,y=y_train,epochs=50)
+model.fit(x=X_train,y=y_train,epochs=250)
 #loss_df=pd.DataFrame(model.history.history)
 model.evaluate(X_test,y_test,verbose=0)
 model.evaluate(X_train,y_train,verbose=0)
@@ -29,3 +29,15 @@ test_pred=model.predict(X_test)
 test_pred=pd.Series(test_pred.reshape(300,))
 pred_df=pd.DataFrame(y_test,columns=['test_truevalue'])
 pred_df=pd.concat([pred_df,test_pred],axis=1)
+pred_df.columns=['true Y','pred']
+sns.scatterplot(x='true Y',y='pred',data=pred_df)
+from sklearn.metrics import mean_absolute_error,mean_squared_error
+
+mean_absolute_error(pred_df['true Y'],pred_df['pred'])
+mean_squared_error(pred_df['true Y'],pred_df['pred'])
+new_gem=[[998,1000]]
+new_gem=scaler.transform(new_gem)
+model.predict(new_gem)
+from tensorflow.keras.models import load_model
+model.save('my_gem.h5')
+later=load_model('my_gem.h5')
