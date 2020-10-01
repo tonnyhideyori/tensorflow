@@ -14,7 +14,6 @@ X_train=scaler.fit_transform(X_train)
 X_test=scaler.fit_transform(X_test)
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
-"""model=Sequential([Dense(4,activation='relu'),Dense(2,activation='relu'),Dense(1)])"""
 model=Sequential()
 model.add(Dense(4,activation='relu'))
 model.add(Dense(2,activation='relu'))
